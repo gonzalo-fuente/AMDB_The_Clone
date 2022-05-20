@@ -4,7 +4,7 @@ AMDB (Alkemy Movie Database) is an online database of information related to fil
 
 ## Live demo
 
-[Link to the site!]()
+[Link to the site!](https://amdb-the-clone.netlify.app/)
 
 ## Use cases
 
