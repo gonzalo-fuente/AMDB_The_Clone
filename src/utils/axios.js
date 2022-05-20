@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosToken = axios.create({
-  baseURL: "http://challenge-react.alkemy.org",
+  baseURL: "/api/",
 });
 
 export const axiosTMDB = axios.create({
