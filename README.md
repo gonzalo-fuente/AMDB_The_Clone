@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# ALKEMY MOVIE DATABASE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+AMDB (Alkemy Movie Database) is an online database of information related to films, that provide detailed information, such as rating, description, and much more.
 
-## Available Scripts
+## Live demo
 
-In the project directory, you can run:
+[Link to the site!]()
 
-### `npm start`
+## Use cases
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Login Form
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The form should be rendered on any route if the user is not authenticated
+Form fields:
 
-### `npm test`
+- E-mail.
+- Password.
+- "Log in" button.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+When submitting, there will be a non empty validation in both fields. If succeeded, a POST request must be made with the email and password fields in the BODY.
+The valid data to get a token are:
 
-### `npm run build`
+- Email: challenge@alkemy.org
+- Password: react
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In the case of getting an API error, an alert should be displayed (using sweet alert).
+If succeeded, it should redirect to Home and store the obtained token in localStorage.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Movie list
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Will bring the most recent movies in theaters with all their information and details.
 
-### `npm run eject`
+3. Movie details
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Will show the particular information of each movie shown in the list, here you can expand deeply into movie information.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Search Engine
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Will allow you to search for movies by a keyword and display the
+matching results
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. Favorites Section
 
-## Learn More
+Each movie will have the option to be added to this section. Only
+movies chosen by the user as "Favorite" may be here.
+Also movies can be removed / deleted from the Favorites section.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+6. Navigation bar
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+There should be an indicator of the number of movies in favourites. And in the detail, it will be specified if that movie is already in Favorites.
 
-### Code Splitting
+## Required to run the app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Node.js v16.14.0
+- NPM v8.3.1
+- Axios v0.26.1
+- React v18.0.0
+- React-icons v4.3.1
+- React-router-dom v5.3.1
+- Sweetalert v2.1.2
 
-### Analyzing the Bundle Size
+## How to run the App manually
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Go to the project root directory, and in the terminal run...
 
-### Making a Progressive Web App
+### `npm install`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### `npm start` - runs the server on http://localhost:3000
