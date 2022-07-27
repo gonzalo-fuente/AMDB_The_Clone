@@ -15,6 +15,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [isLogin, setIsLogin] = useState(true);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -53,48 +54,84 @@ function Login() {
       });
       return;
     }
-
-    if (user.email !== "challenge@alkemy.org" || user.password !== "react") {
-      swal({
-        title: "Invalid credentials",
-        icon: "error",
-      });
-      return;
-    }
-
-    try {
-      const response = await axiosToken.post("/", user);
-      saveToken(response?.data.token);
-      swal({
-        title: "Login Succesfull",
-        icon: "success",
-      });
-      setUser({
-        email: "",
-        password: "",
-      });
-      history.push("/list");
-    } catch (err) {
-      if (!err?.response) {
-        swal({
-          title: "No Server Response",
-          icon: "error",
+    if (isLogin) {
+      /* LOGIN REQUEST */
+      try {
+        const response = await axiosToken.post("/auth", {
+          user: user.email,
+          password: user.password,
         });
-      } else if (err.response?.status === 400) {
+        saveToken(response?.data.accessToken);
         swal({
-          title: "Missing Username or Password",
-          icon: "error",
+          title: "Login Succesfull",
+          icon: "success",
         });
-      } else if (err.response?.status === 401) {
+        setUser({
+          email: "",
+          password: "",
+        });
+        history.push("/list");
+      } catch (err) {
+        if (!err?.response) {
+          swal({
+            title: "No Server Response",
+            icon: "error",
+          });
+        } else if (err.response?.status === 400) {
+          swal({
+            title: "Missing Username or Password",
+            icon: "error",
+          });
+        } else if (err.response?.status === 401) {
+          swal({
+            title: "Username or Password Incorrect",
+            icon: "error",
+          });
+        } else {
+          swal({
+            title: "Login Failed",
+            icon: "error",
+          });
+        }
+      }
+    } else {
+      /* REGISTER REQUEST */
+      try {
+        const response = await axiosToken.post("/register", {
+          user: user.email,
+          password: user.password,
+        });
         swal({
-          title: "Unauthorized",
-          icon: "error",
+          title: `User ${user.email} created Succesfully`,
+          icon: "success",
         });
-      } else {
-        swal({
-          title: "Login Failed",
-          icon: "error",
+        setUser({
+          email: "",
+          password: "",
         });
+        setIsLogin(true);
+      } catch (err) {
+        if (!err?.response) {
+          swal({
+            title: "No Server Response",
+            icon: "error",
+          });
+        } else if (err.response?.status === 400) {
+          swal({
+            title: "Missing Username or Password",
+            icon: "error",
+          });
+        } else if (err.response?.status === 409) {
+          swal({
+            title: "User already exist!",
+            icon: "error",
+          });
+        } else {
+          swal({
+            title: "Server Error, try again later",
+            icon: "error",
+          });
+        }
       }
     }
   };
@@ -113,7 +150,7 @@ function Login() {
           {/* <!-- Col --> */}
           <div className="w-full mx-auto bg-white p-5 rounded-lg lg:rounded-l-none">
             <h3 className="pt-4 text-2xl text-center">
-              Log in to your account
+              {isLogin ? "Log in to" : "Create"} your account
             </h3>
             <form
               onSubmit={handleSubmit}
@@ -159,9 +196,18 @@ function Login() {
                   className="w-full px-4 py-2 font-bold text-white bg-teal-600 rounded-full hover:bg-teal-800 focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  Log In
+                  {isLogin ? "Log In" : "Sign In"}
                 </button>
               </div>
+              <p className="mt-2">
+                {isLogin ? "New to AMDB? " : "Return to "}
+                <a
+                  className="text-teal-600 underline"
+                  onClick={() => setIsLogin((prevState) => !prevState)}
+                >
+                  {isLogin ? "Sign Up" : "Login page"}
+                </a>
+              </p>
             </form>
           </div>
         </div>
