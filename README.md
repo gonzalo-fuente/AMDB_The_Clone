@@ -18,10 +18,6 @@ Form fields:
 - "Log in" button.
 
 When submitting, there will be a non empty validation in both fields. If succeeded, a POST request must be made with the email and password fields in the BODY.
-The valid data to get a token are:
-
-- Email: challenge@alkemy.org
-- Password: react
 
 In the case of getting an API error, an alert should be displayed (using sweet alert).
 If succeeded, it should redirect to Home and store the obtained token in localStorage.
