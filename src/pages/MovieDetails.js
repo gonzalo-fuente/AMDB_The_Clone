@@ -60,7 +60,7 @@ function MovieDetails() {
   function printStars() {
     if (movie) {
       for (let i = 0; i < Math.floor(movie.vote_average); i++) {
-        stars.push(<FaStar />);
+        stars.push(<FaStar key={i} />);
       }
     }
   }

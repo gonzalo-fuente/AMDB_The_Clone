@@ -2,9 +2,12 @@ import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { axiosToken } from "../utils/axios";
+import { TokenContext } from "../context/TokenContext";
+
+import Loading from "../components/Loading";
+
 import swal from "sweetalert";
 import loginPicture from "../assets/authentication.svg";
-import { TokenContext } from "../context/TokenContext";
 
 function Login() {
   const history = useHistory();
@@ -16,6 +19,7 @@ function Login() {
     password: "",
   });
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -56,6 +60,7 @@ function Login() {
     }
     if (isLogin) {
       /* LOGIN REQUEST */
+      setIsLoading(true);
       try {
         const response = await axiosToken.post("/auth", {
           user: user.email,
@@ -93,9 +98,12 @@ function Login() {
             icon: "error",
           });
         }
+      } finally {
+        setIsLoading(false);
       }
     } else {
       /* REGISTER REQUEST */
+      setIsLoading(true);
       try {
         const response = await axiosToken.post("/register", {
           user: user.email,
@@ -132,6 +140,8 @@ function Login() {
             icon: "error",
           });
         }
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -198,15 +208,21 @@ function Login() {
                 >
                   {isLogin ? "Log In" : "Sign In"}
                 </button>
+                {isLoading && (
+                  <div className="mt-3">
+                    <Loading />
+                  </div>
+                )}
               </div>
               <p className="mt-2">
                 {isLogin ? "New to AMDB? " : "Return to "}
-                <a
+                <button
+                  type="button"
                   className="text-teal-600 underline"
                   onClick={() => setIsLogin((prevState) => !prevState)}
                 >
                   {isLogin ? "Sign Up" : "Login page"}
-                </a>
+                </button>
               </p>
             </form>
           </div>

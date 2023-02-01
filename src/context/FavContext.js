@@ -5,6 +5,7 @@ export const FavContext = createContext(null);
 const FavProvider = ({ children }) => {
   /* Get Favorites from localStorage */
   const getFavorites = () => {
+    if (localStorage.getItem("favorites") == null) return [];
     const favString = localStorage.getItem("favorites");
     return JSON.parse(favString);
   };
